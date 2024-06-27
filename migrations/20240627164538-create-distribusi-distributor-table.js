@@ -2,39 +2,39 @@
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable("pengguna", {
-            id_pengguna: {
+        await queryInterface.createTable("distribusi_distributor", {
+            id_distribusi: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            nama_pengguna: {
-                type: Sequelize.STRING,
+            id_distributor: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: {
+                    model: "distributor",
+                    key: "id_distributor",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
+            },
+            id_penerimaan: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: {
+                    model: "penerimaan_gudang",
+                    key: "id_penerimaan",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
+            },
+            tanggal_distribusi: {
+                type: Sequelize.DATE,
                 allowNull: false,
             },
-            peran: {
-                type: Sequelize.ENUM(
-                    "pabrik",
-                    "gudang",
-                    "distributor",
-                    "pengecer",
-                    "petani",
-                    "superuser"
-                ),
-                allowNull: false,
-            },
-            username: {
-                type: Sequelize.STRING,
-                allowNull: false,
-                unique: true,
-            },
-            password: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            blockchain_address: {
-                type: Sequelize.STRING,
+            jumlah_pupuk_didistribusikan: {
+                type: Sequelize.INTEGER,
                 allowNull: false,
             },
             createdAt: {
@@ -52,6 +52,6 @@ module.exports = {
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable("pengguna");
+        await queryInterface.dropTable("distribusi_distributor");
     },
 };

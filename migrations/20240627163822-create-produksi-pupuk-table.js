@@ -2,39 +2,33 @@
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable("pengguna", {
-            id_pengguna: {
+        await queryInterface.createTable("produksi_pupuk", {
+            id_produksi: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            nama_pengguna: {
-                type: Sequelize.STRING,
+            id_pabrik: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: {
+                    model: "pabrik",
+                    key: "id_pabrik",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
+            },
+            tanggal_produksi: {
+                type: Sequelize.DATE,
                 allowNull: false,
             },
-            peran: {
-                type: Sequelize.ENUM(
-                    "pabrik",
-                    "gudang",
-                    "distributor",
-                    "pengecer",
-                    "petani",
-                    "superuser"
-                ),
+            jumlah_pupuk_diproduksi: {
+                type: Sequelize.INTEGER,
                 allowNull: false,
             },
-            username: {
-                type: Sequelize.STRING,
-                allowNull: false,
-                unique: true,
-            },
-            password: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            blockchain_address: {
-                type: Sequelize.STRING,
+            batch_number: {
+                type: Sequelize.STRING(50),
                 allowNull: false,
             },
             createdAt: {
@@ -52,6 +46,6 @@ module.exports = {
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable("pengguna");
+        await queryInterface.dropTable("produksi_pupuk");
     },
 };

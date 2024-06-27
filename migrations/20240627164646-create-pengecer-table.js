@@ -2,38 +2,19 @@
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable("pengguna", {
-            id_pengguna: {
+        await queryInterface.createTable("pengecer", {
+            id_pengecer: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            nama_pengguna: {
-                type: Sequelize.STRING,
+            nama_pengecer: {
+                type: Sequelize.STRING(100),
                 allowNull: false,
             },
-            peran: {
-                type: Sequelize.ENUM(
-                    "pabrik",
-                    "gudang",
-                    "distributor",
-                    "pengecer",
-                    "petani",
-                    "superuser"
-                ),
-                allowNull: false,
-            },
-            username: {
-                type: Sequelize.STRING,
-                allowNull: false,
-                unique: true,
-            },
-            password: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            blockchain_address: {
+
+            kabupaten_kota: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
@@ -52,6 +33,6 @@ module.exports = {
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable("pengguna");
+        await queryInterface.dropTable("pengecer");
     },
 };
