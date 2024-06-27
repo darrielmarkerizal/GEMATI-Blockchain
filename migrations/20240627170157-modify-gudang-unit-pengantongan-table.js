@@ -7,13 +7,12 @@ module.exports = {
             "id_provinsi",
             {
                 type: Sequelize.INTEGER,
-                allowNull: true,
+                allowNull: false,
                 references: {
                     model: "provinsi",
                     key: "id_provinsi",
                 },
                 onUpdate: "CASCADE",
-                onDelete: "SET NULL",
             }
         );
 
@@ -22,13 +21,12 @@ module.exports = {
             "id_pengguna",
             {
                 type: Sequelize.INTEGER,
-                allowNull: true,
+                allowNull: false,
                 references: {
                     model: "pengguna",
                     key: "id_pengguna",
                 },
                 onUpdate: "CASCADE",
-                onDelete: "SET NULL",
             }
         );
     },

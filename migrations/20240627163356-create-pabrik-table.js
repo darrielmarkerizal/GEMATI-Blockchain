@@ -13,16 +13,7 @@ module.exports = {
                 type: Sequelize.STRING(100),
                 allowNull: false,
             },
-            // lokasi_pabrik: {
-            //     type: Sequelize.INTEGER,
-            //     allowNull: false,
-            //     references: {
-            //         model: "provinsi",
-            //         key: "id_provinsi",
-            //     },
-            //     onUpdate: "CASCADE",
-            //     onDelete: "SET NULL",
-            // },
+
             kapasitas_produksi: {
                 type: Sequelize.DECIMAL(10, 2),
                 allowNull: false,
@@ -31,16 +22,7 @@ module.exports = {
                 type: Sequelize.STRING(100),
                 allowNull: false,
             },
-            // id_pengguna: {
-            //     type: Sequelize.INTEGER,
-            //     allowNull: false,
-            //     references: {
-            //         model: "pengguna",
-            //         key: "id_pengguna",
-            //     },
-            //     onUpdate: "CASCADE",
-            //     onDelete: "CASCADE",
-            // },
+
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
