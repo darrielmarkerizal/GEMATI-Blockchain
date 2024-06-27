@@ -39,16 +39,6 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
-            id_produksi: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                references: {
-                    model: "produksi_pupuk",
-                    key: "id_produksi",
-                },
-                onUpdate: "CASCADE",
-                onDelete: "CASCADE",
-            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,

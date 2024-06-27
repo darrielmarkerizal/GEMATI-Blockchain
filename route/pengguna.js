@@ -668,7 +668,7 @@ router.get("/petani", verifyPetaniAccess, async (req, res) => {
     }
 });
 
-router.get("/pengguna/:id_pengguna", verifySuperuser, async (req, res) => {
+router.get("/pengguna/:id_pengguna", async (req, res) => {
     try {
         const pengguna = await Pengguna.findByPk(req.params.id_pengguna, {
             attributes: { exclude: ["password"] },

@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/database"); // Adjust the path as necessary
+const sequelize = require("../config/database");
 
 class Gudang extends Model {}
 
