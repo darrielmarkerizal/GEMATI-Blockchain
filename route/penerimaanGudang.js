@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { ethers } = require("ethers");
 const PenerimaanGudang = require("../models/penerimaan-gudang");
+dotenv = require("dotenv");
 
 const contractABI = [
     {
@@ -115,7 +116,7 @@ const contractABI = [
     },
 ];
 
-const contractAddress = "0x0dcd3972dbd89673fcb6ff7c7a570cb811ec6d00";
+const contractAddress = process.env.PENERIMAAN_GUDANG_CONTRACT_ADDRESS;
 
 const provider = new ethers.providers.JsonRpcProvider(process.env.INFURA_URL);
 
