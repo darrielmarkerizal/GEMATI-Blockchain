@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { ethers } = require("ethers");
 const PenerimaanGudang = require("../models/penerimaan-gudang");
+const Gudang = require("../models/Gudang");
 dotenv = require("dotenv");
 
 const contractABI = [
@@ -188,6 +189,23 @@ router.post("/penerimaanGudang", async (req, res) => {
     } catch (error) {
         console.error("Error receiving goods:", error);
         res.status(500).json({ error: "Failed to receive goods" });
+    }
+});
+
+router.get("/penerimaanGudang", async (req, res) => {
+    try {
+        const penerimaanGudang = await PenerimaanGudang.findAll({
+            include: [
+                {
+                    model: Gudang,
+                    as: "gudangUnitPengantongan",
+                },
+            ],
+        });
+        res.json(penerimaanGudang);
+    } catch (error) {
+        console.error("Error fetching penerimaan gudang:", error);
+        res.status(500).send("Internal Server Error");
     }
 });
 

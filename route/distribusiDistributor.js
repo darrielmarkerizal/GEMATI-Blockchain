@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const ethers = require("ethers");
 const DistribusiDistributorModel = require("../models/distribusi-distributor");
-dotenv = require("dotenv");
+const Distributor = require("../models/Distributor");
+const PenerimaanGudang = require("../models/penerimaan-gudang");
+const dotenv = require("dotenv");
 
 const contractABI = [
     {
@@ -149,6 +151,44 @@ router.post("/distribusiDistributor", async (req, res) => {
     } catch (error) {
         console.error("Error recording distribution:", error);
         res.status(500).json({ error: "Failed to record distribution" });
+    }
+});
+
+router.get("/distribusiDistributor", async (req, res) => {
+    try {
+        const distribusiDistributors = await DistribusiDistributorModel.findAll(
+            {
+                include: [
+                    {
+                        model: Distributor,
+                        as: "distributor",
+                        attributes: [
+                            "id_distributor",
+                            "nama_distributor",
+                            "kabupaten_kota",
+                        ],
+                    },
+                    {
+                        model: PenerimaanGudang,
+                        as: "penerimaan_gudang",
+                        attributes: [
+                            "id_penerimaan",
+                            "tanggal_penerimaan",
+                            "jumlah_pupuk_diterima",
+                            "hasil_pengecekan_kualitas",
+                            "tanggal_pengemasan",
+                            "jumlah_pupuk_dikemas",
+                        ],
+                    },
+                ],
+            }
+        );
+        res.status(200).json(distribusiDistributors);
+    } catch (error) {
+        console.error("Error fetching distribusi distributors:", error);
+        res.status(500).json({
+            error: "Failed to fetch distribusi distributors",
+        });
     }
 });
 

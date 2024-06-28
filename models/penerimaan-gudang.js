@@ -1,5 +1,6 @@
 const sequelize = require("../config/database");
 const { Model, DataTypes } = require("sequelize");
+const GudangUnitPengantongan = require("./Gudang");
 
 class PenerimaanGudang extends Model {}
 
@@ -65,5 +66,10 @@ PenerimaanGudang.init(
         timestamps: true,
     }
 );
+
+PenerimaanGudang.belongsTo(GudangUnitPengantongan, {
+    foreignKey: "id_gudang",
+    as: "gudangUnitPengantongan",
+});
 
 module.exports = PenerimaanGudang;

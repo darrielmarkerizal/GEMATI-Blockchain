@@ -4,6 +4,8 @@ const ethers = require("ethers");
 const {
     PenerimaanSubsidiPetani,
 } = require("../models/penerimaan-subsidi-petani");
+const Petani = require("../models/Petani");
+const PenerimaanPengecer = require("../models/penerimaan-pengecer");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -80,6 +82,18 @@ router.post("/subsidiPetani", async (req, res) => {
     } catch (error) {
         console.error("Error recording subsidy receipt:", error);
         res.status(500).json({ error: "Failed to record subsidy receipt" });
+    }
+});
+
+router.get("/subsidiPetani", async (req, res) => {
+    try {
+        const subsidiPetaniRecords = await PenerimaanSubsidiPetani.findAll();
+        res.status(200).json(subsidiPetaniRecords);
+    } catch (error) {
+        console.error("Error fetching PenerimaanSubsidiPetani records:", error);
+        res.status(500).json({
+            error: "Failed to fetch PenerimaanSubsidiPetani records",
+        });
     }
 });
 

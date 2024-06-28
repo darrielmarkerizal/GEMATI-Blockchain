@@ -1,5 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
+const Petani = require("./Petani");
+const PenerimaanPengecer = require("./penerimaan-pengecer");
 
 class PenerimaanSubsidiPetani extends Model {}
 
@@ -48,3 +50,13 @@ PenerimaanSubsidiPetani.init(
         timestamps: false,
     }
 );
+
+PenerimaanSubsidiPetani.belongsTo(Petani, {
+    foreignKey: "id_petani",
+});
+
+PenerimaanSubsidiPetani.belongsTo(PenerimaanPengecer, {
+    foreignKey: "id_penerimaan_pengecer",
+});
+
+module.exports = PenerimaanSubsidiPetani;

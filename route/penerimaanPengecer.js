@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const ethers = require("ethers");
 const PenerimaanPengecer = require("../models/penerimaan-pengecer");
+const DistribusiDistributor = require("../models/distribusi-distributor");
+const Pengecer = require("../models/Pengecer");
 
 require("dotenv").config();
 
@@ -116,6 +118,45 @@ router.post("/penerimaanPengecer", async (req, res) => {
     } catch (error) {
         console.error("Error recording penerimaan:", error);
         res.status(500).json({ error: "Failed to record penerimaan" });
+    }
+});
+
+router.get("/penerimaanPengecer", async (req, res) => {
+    try {
+        const penerimaanPengecerData = await PenerimaanPengecer.findAll({
+            include: [
+                {
+                    model: DistribusiDistributor,
+                    as: "distribusi_distributor",
+                    attributes: [
+                        "id_distribusi",
+                        "id_distributor",
+                        "id_penerimaan",
+                        "tanggal_distribusi",
+                        "jumlah_pupuk_didistribusikan",
+                        "hash_transaksi",
+                    ],
+                },
+                {
+                    model: Pengecer,
+                    as: "pengecer",
+                    attributes: [
+                        "id_pengecer",
+                        "nama_pengecer",
+                        "kabupaten_kota",
+                        "id_provinsi",
+                        "id_pengguna",
+                    ],
+                },
+            ],
+        });
+
+        res.json(penerimaanPengecerData);
+    } catch (error) {
+        console.error("Error fetching PenerimaanPengecer data:", error);
+        res.status(500).json({
+            error: "Failed to fetch PenerimaanPengecer data",
+        });
     }
 });
 
