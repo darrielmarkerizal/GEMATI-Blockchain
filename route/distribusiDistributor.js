@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ethers = require("ethers");
 const DistribusiDistributorModel = require("../models/distribusi-distributor");
+dotenv = require("dotenv");
 
 const contractABI = [
     {
@@ -87,7 +88,7 @@ const contractABI = [
     },
 ];
 
-const contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138";
+const contractAddress = process.env.DISTRIBUSI_DISTRIBUTOR_CONTRACT_ADDRESS;
 
 const provider = new ethers.providers.JsonRpcProvider(process.env.INFURA_URL);
 
